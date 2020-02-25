@@ -1,8 +1,8 @@
 "use strict";
 
 let round = 5;
+let roundCounter = 0;
 let numPlayers = 10;
-let roundScore = 6;
 let player = {name:"player", roundScore: 0}
 let players = [
     {name:"player1", roundScore: 0},
@@ -31,19 +31,52 @@ function rollDiceSet(){
    
 }
 function playRound(){
-       playerSet().map(p =>p.roundScore += (rollDiceSet()));
-       playerSet().forEach(p => console.log(p.name + " " + p.roundScore));
+       
+       players.map(p =>p.roundScore = (rollDiceSet()));
+       players.forEach(p => console.log(p.name + " " + p.roundScore));  
+    }
+function shootoutRound(){
+        let selectD20 = rollDice(1, 5);
+        let d20arr = [rollDice(1, 21), rollDice(1, 21), rollDice(1, 21), rollDice(1, 21)]
+        d20arr.sort(function(a, b){return a-b});
+        for(let i = 0; i < selectD20; i++){
+            d20arr.shift();
+        }
     }
 function eliminate(){
-    if(round < 4){
-        players.sort(function(a, b){return b-a});
+    if(roundCounter < 4){
+        players.sort(function(a, b){return a.roundScore-b.roundScore});
         players.shift();
         players.shift();
-        players.shift();
+        console.log(players)
     }
-    else if(round = 4 || 5){
-        players.sort(function(a, b){return b-a});
+    else if(roundCounter = 4 || 5){
+        players.sort(function(a, b){return a.roundScore-b.roundScore});
         players.shift()
+        console.log(players);
     }
 }
-    playRound();
+function displayWinner(){
+    player1 = shootoutRound();
+    player2 = shootoutRound();
+    if (player1 > player2){
+        alert(players, "Congrats on winning!")
+    }
+    else{
+        alert(players, "Congrats on winning!")
+    }
+}
+function playRoundMaster(){
+      
+    if(roundCounter != 6){
+        playRound();
+        eliminate();
+    }
+    else{
+        displayWinner();
+        
+    }
+    roundCounter++
+    console.log(roundCounter);
+}
+    
