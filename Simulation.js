@@ -17,7 +17,6 @@ let players = [
     {name:"player10", roundScore: 0}
 ];
 
-
 function rollDice(min, max){
    return Math.floor(Math.random() * (max - min + 1)) + min; 
 }
@@ -32,7 +31,19 @@ function rollDiceSet(){
    
 }
 function playRound(){
-       players.map(p =>p.roundScore += (rollDiceSet()));
-       players.forEach(p => console.log(p.name + " " + p.roundScore));
+       playerSet().map(p =>p.roundScore += (rollDiceSet()));
+       playerSet().forEach(p => console.log(p.name + " " + p.roundScore));
     }
+function eliminate(){
+    if(round < 4){
+        players.sort(function(a, b){return b-a});
+        players.shift();
+        players.shift();
+        players.shift();
+    }
+    else if(round = 4 || 5){
+        players.sort(function(a, b){return b-a});
+        players.shift()
+    }
+}
     playRound();
