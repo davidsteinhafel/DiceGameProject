@@ -1,6 +1,6 @@
 "use strict";
 
-let round = 5;
+
 let roundCounter = 0;
 let numPlayers = 10;
 let player = {name:"player", roundScore: 0}
@@ -31,14 +31,19 @@ function rollDiceSet(){
    
 }
 function playRound(){
-       
+       roundCounter++;
+       document.getElementById("myDiv").innerHTML=String(roundCounter);
        players.map(p =>p.roundScore = (rollDiceSet()));
-       players.forEach(p => console.log(p.name + " " + p.roundScore));  
+       document.getElementById("myDiv1").innerHTML ="";
+       players.forEach(p => document.getElementById("myDiv1").innerHTML+= String(p.name + " "));
+       document.getElementById("myDiv2").innerHTML ="";
+       players.forEach(p => document.getElementById("myDiv2").innerHTML+= String(" " + p.roundScore))
     }
 function shootoutRound(){
         let selectD20 = rollDice(1, 5);
         let d20arr = [rollDice(1, 21), rollDice(1, 21), rollDice(1, 21), rollDice(1, 21)]
         d20arr.sort(function(a, b){return a-b});
+        
         for(let i = 0; i < selectD20; i++){
             d20arr.shift();
         }
@@ -48,35 +53,39 @@ function eliminate(){
         players.sort(function(a, b){return a.roundScore-b.roundScore});
         players.shift();
         players.shift();
-        console.log(players)
+
     }
-    else if(roundCounter = 4 || 5){
+    else if(roundCounter == 4 || 5){
         players.sort(function(a, b){return a.roundScore-b.roundScore});
         players.shift()
-        console.log(players);
+    }
+    else{
+        displayWinner();
     }
 }
 function displayWinner(){
-    player1 = shootoutRound();
-    player2 = shootoutRound();
+    roundCounter++;
+    document.getElementById("myDiv4").innerHTML=String(roundCounter);
+    let player1 = shootoutRound();
+    let player2 = shootoutRound();
+
+    
     if (player1 > player2){
-        alert(players, "Congrats on winning!")
+        alert(players[0].name + " " + "Congrats on winning!")
+        document.getElementById("myDiv1").innerHTML=String(player[0].name);
     }
     else{
-        alert(players, "Congrats on winning!")
+        alert(players[0].name + " " + "Congrats on winning!")
+        document.getElementById("myDiv1").innerHTML=String(player[0].name);
     }
 }
 function playRoundMaster(){
-      
-    if(roundCounter != 6){
+    if(players.length > 1){
         playRound();
         eliminate();
     }
     else{
         displayWinner();
-        
     }
-    roundCounter++
-    console.log(roundCounter);
 }
     
