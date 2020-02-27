@@ -59,14 +59,12 @@ function eliminate() {
         players.sort(function (a, b) {return a.roundScore - b.roundScore});
         players.shift();
         players.shift();
-        document.getElementById("elim").innerHTML = "";
         document.getElementById("elim").innerHTML += String(players[0].name);
         document.getElementById("elim").innerHTML += String(players[1].name);
     }
     else if (roundCounter == 4 || roundCounter == 5) {
         players.sort(function (a, b) {return a.roundScore - b.roundScore});
         players.shift()
-        document.getElementById("elim").innerHTML = "";
         document.getElementById("elim").innerHTML += String(players[0].name);
     }
     else if (roundCounter > 6) {
